@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.Web", "TestTask.Web\TestTask.Web.csproj", "{A17A0CD3-BE19-412C-BCB6-167A4C137380}"
 EndProject
@@ -9,9 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.DataAccess", "Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.Business", "TestTask.Business\TestTask.Business.csproj", "{D5C9D62D-CD76-4320-8158-C1F4A77B5D6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.Entities", "TestTask.Entities\TestTask.Entities.csproj", "{83B0C09B-C072-4F03-9067-238429BEF8C7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.Services", "TestTask.Services\TestTask.Services.csproj", "{C3ADBD42-6981-41B1-A68A-D1E3EAD882D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask.Utils", "TestTask.Utils\TestTask.Utils.csproj", "{74BE7732-6D7A-4F35-9962-172051732973}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +29,10 @@ Global
 		{D5C9D62D-CD76-4320-8158-C1F4A77B5D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5C9D62D-CD76-4320-8158-C1F4A77B5D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5C9D62D-CD76-4320-8158-C1F4A77B5D6B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83B0C09B-C072-4F03-9067-238429BEF8C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83B0C09B-C072-4F03-9067-238429BEF8C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83B0C09B-C072-4F03-9067-238429BEF8C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83B0C09B-C072-4F03-9067-238429BEF8C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3ADBD42-6981-41B1-A68A-D1E3EAD882D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3ADBD42-6981-41B1-A68A-D1E3EAD882D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3ADBD42-6981-41B1-A68A-D1E3EAD882D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3ADBD42-6981-41B1-A68A-D1E3EAD882D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74BE7732-6D7A-4F35-9962-172051732973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74BE7732-6D7A-4F35-9962-172051732973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74BE7732-6D7A-4F35-9962-172051732973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74BE7732-6D7A-4F35-9962-172051732973}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

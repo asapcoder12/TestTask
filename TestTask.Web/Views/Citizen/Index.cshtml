@@ -1,0 +1,180 @@
+﻿@using System.Globalization
+@model IEnumerable<EditCitizenViewModel>
+
+@{
+    ViewData["Title"] = "Citizens";
+}
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+<div class="text-center">
+    <div class="container mt-5">
+        <table id="citizensTable" class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Date of Birth</th>
+                    <th>Is Married</th>
+                    <th>Phone</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var citizen in Model)
+                {
+                    <tr data-id="@citizen.Id">
+                        <td>@citizen.Id</td>
+                        <td><input type="text" class="edit-field" data-field="Name" value="@citizen.Name" /></td>
+                        <td><input type="date" class="edit-field" data-field="DateOfBirth" value="@citizen.DateOfBirth.ToString("yyyy-MM-dd")" /></td>
+                        <td><input type="checkbox" class="edit-field" data-field="IsMarried" @(citizen.IsMarried ? "checked" : "") /></td>
+                        <td><input type="text" class="edit-field" data-field="Phone" value="@citizen.Phone" /></td>
+                        <td><input type="number" class="edit-field" data-field="Salary" value="@citizen.Salary.ToString("0.##", CultureInfo.InvariantCulture)" step="0.01" /></td>
+                        <td>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+    <script>
+                $(document).ready(function () {
+        $('#citizensTable').DataTable({
+            searching: false,
+            order: [[0, 'asc']], // Сортировка по умолчанию по первому столбцу (Id)
+            columnDefs: [
+                {
+                    targets: [0], // Колонка Id
+                    orderable: true,
+                    type: 'num'
+                },
+                {
+                    targets: [1], // Колонка Name
+                    orderable: true,
+                    render: function (data, type, row) {
+                        if (type === 'sort') {
+                            let inputValue = $('<div>').html(data).find('input').val();
+                            return inputValue ? inputValue.toLowerCase() : ''; // Приведение к нижнему регистру
+                        }
+                        return data;
+                    },
+                    type:'string-utf8'
+                },
+                {
+                    targets: [2], // Колонка Date of Birth
+                    orderable: true,
+                    render: function (data, type, row) {
+                        if (type === 'sort') {
+                            let inputValue = $('<div>').html(data).find('input').val();
+                            return inputValue ? new Date(inputValue).getTime() : 0; // Конвертация в timestamp
+                        }
+                        return data;
+                    }
+                },
+                {
+                    targets: [3], // Колонка Is Married
+                    orderable: true,
+                    render: function (data, type, row) {
+                        if (type === 'sort') {
+                            let inputValue = $('<div>').html(data).find('input').prop('checked');
+                            return inputValue ? 1 : 0; // true -> 1, false -> 0
+                        }
+                        return data;
+                    }
+                },
+                {
+                    targets: [4], // Колонка Phone
+                    orderable: true,
+                    render: function (data, type, row) {
+                        if (type === 'sort') {
+                            let inputValue = $('<div>').html(data).find('input').val();
+                            return inputValue ? inputValue.toLowerCase() : ''; // Приведение к строке
+                        }
+                        return data;
+                    },
+                    type:'string-utf8'
+                },
+                {
+                    targets: [5], // Колонка Salary
+                    orderable: true,
+                    render: function (data, type, row) {
+                        if (type === 'sort') {
+                            let inputValue = $('<div>').html(data).find('input').val();
+                            return inputValue ? parseFloat(inputValue) : 0; // Приведение к числу
+                        }
+                        return data;
+                    }
+                },
+                {
+                    targets: 6, // Колонка Actions
+                    orderable: false // Убираем сортировку
+                }
+            ]
+        });
+
+        $(document).on('change', '.edit-field', function () {
+            var $input = $(this);
+            var citizenId = $input.closest('tr').data('id');
+
+            var updatedFields = {
+                Id: citizenId
+            };
+
+            $input.closest('tr').find('.edit-field').each(function () {
+                var $field = $(this);
+                var fieldName = $field.data('field');
+                var fieldValue = $field.val();
+
+                if (fieldName === 'IsMarried') {
+                    fieldValue = $field.prop('checked');
+                }
+
+                updatedFields[fieldName] = fieldValue;
+            });
+
+
+            console.log(updatedFields);
+
+            $.ajax({
+                url: `Citizen/Update/${citizenId}`,
+                type: 'PUT',
+                data: JSON.stringify(updatedFields),
+                contentType: "application/json",
+                success: function (response) {
+                    console.log('All fields updated successfully');
+                },
+                error: function () {
+                    alert('Error while updating the fields');
+                }
+            });
+        });
+
+            $(document).on('click', '.delete-btn', function () {
+                var $row = $(this).closest('tr');
+                var citizenId = $row.data('id');
+
+                if (confirm('Are you sure you want to delete this record?')) {
+                    $.ajax({
+                        url: `Citizen/Delete/${citizenId}`,
+                        type: 'DELETE',
+                        data: { id: citizenId },
+                        success: function (response) {
+                            $('#citizensTable').DataTable().row($row).remove().draw();
+                        },
+                        error: function () {
+                            alert('Error while deleting the record');
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+}
