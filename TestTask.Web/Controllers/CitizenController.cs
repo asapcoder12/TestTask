@@ -16,12 +16,6 @@ namespace TestTask.Web.Controllers
         private readonly IMapper _mapper;
         private readonly CitizenService _citizenService;
 
-        private static List<EditCitizenViewModel> citizens = new List<EditCitizenViewModel>
-        {
-            new EditCitizenViewModel { Id = 1, Name = "John Doe", DateOfBirth = new DateTime(1985, 5, 15), IsMarried = true, Phone = "1234567890", Salary = 50000 },
-            new EditCitizenViewModel { Id = 2, Name = "Jane Smith", DateOfBirth = new DateTime(1990, 8, 22), IsMarried = false, Phone = "0987654321", Salary = 60000 }
-        };
-
         public CitizenController(IMapper mapper, CitizenService citizenService)
         {
             _mapper = mapper;
